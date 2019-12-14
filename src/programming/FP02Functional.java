@@ -12,10 +12,13 @@ public class FP02Functional {
     }
 
     private static int addNumbers(List<Integer> numbers) {
-        return numbers.stream().reduce(0, FP02Functional::sum);
+        return numbers.stream().reduce(0, Integer::sum);
+//                .reduce(0, FP02Functional::sum);
+//                .reduce(0, (x, y) -> x + y);
     }
 
     public static int sum(int a, int b) {
+        System.out.println(a + " " + b);
         return a + b;
     }
 }
