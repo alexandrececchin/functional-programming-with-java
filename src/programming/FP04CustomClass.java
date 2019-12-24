@@ -104,17 +104,26 @@ public class FP04CustomClass {
 //        System.out.println(courses.stream().dropWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
 
         System.out.println(courses.stream().max(comparingByNoOfStudentsDecrease));
+
         System.out.println(courses.stream().min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
 
-        System.out.println(
-                courses.stream().filter(reviewScoreLessThan90Predicate)
+        System.out.println(courses.stream().filter(reviewScoreLessThan90Predicate)
                         .min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
 
         System.out.println(courses.stream().filter(reviewScoreLessThan90Predicate).findFirst());
+
         System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).findFirst());
+
         System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).findAny());
 
 
+        System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).mapToInt(Course::getNoOfStudents).sum());//88000
+
+        System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).mapToInt(Course::getNoOfStudents).average());//OptionalDouble[22000.0]
+
+        System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).mapToInt(Course::getNoOfStudents).count());//4
+
+        System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).mapToInt(Course::getNoOfStudents).max());
 
 
     }
