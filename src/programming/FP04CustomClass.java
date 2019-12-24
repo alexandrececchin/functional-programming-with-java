@@ -3,7 +3,6 @@ package programming;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 class Course {
     private String name;
@@ -80,12 +79,12 @@ public class FP04CustomClass {
 //        System.out.println(courses.stream().noneMatch(reviewScoreLessThan90Predicate));
 //        System.out.println(courses.stream().anyMatch(reviewScoreGreaterThan90Predicate));
 
-//        Comparator<Course> comparingByNoOfStudentsIncrease = Comparator.comparing(Course::getNoOfStudents);
+        Comparator<Course> comparingByNoOfStudentsIncrease = Comparator.comparing(Course::getNoOfStudents);
 //
 //        System.out.println(
 //                courses.stream().sorted(comparingByNoOfStudentsIncrease).collect(Collectors.toList()));
 //
-//        Comparator<Course> comparingByNoOfStudentsDecrease = Comparator.comparingInt(Course::getNoOfStudents).reversed();
+        Comparator<Course> comparingByNoOfStudentsDecrease = Comparator.comparingInt(Course::getNoOfStudents).reversed();
 //        System.out.println(
 //                courses.stream().sorted(comparingByNoOfStudentsDecrease).collect(Collectors.toList()));
 //
@@ -100,9 +99,22 @@ public class FP04CustomClass {
 //        System.out.println(
 //                courses.stream().sorted(comparingByNoOfStudentsAndReviews).skip(3).collect(Collectors.toList()));
 
-        System.out.println(courses);
-        System.out.println(courses.stream().takeWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
-        System.out.println(courses.stream().dropWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
+//        System.out.println(courses);
+//        System.out.println(courses.stream().takeWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
+//        System.out.println(courses.stream().dropWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
+
+        System.out.println(courses.stream().max(comparingByNoOfStudentsDecrease));
+        System.out.println(courses.stream().min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
+
+        System.out.println(
+                courses.stream().filter(reviewScoreLessThan90Predicate)
+                        .min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
+
+        System.out.println(courses.stream().filter(reviewScoreLessThan90Predicate).findFirst());
+        System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).findFirst());
+        System.out.println(courses.stream().filter(reviewScoreGreaterThan95Predicate).findAny());
+
+
 
 
     }
