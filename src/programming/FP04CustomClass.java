@@ -94,12 +94,15 @@ public class FP04CustomClass {
 //        System.out.println(
 //                courses.stream().sorted(comparingByNoOfStudentsAndReviews).collect(Collectors.toList()));
 
-        System.out.println(
-                courses.stream().sorted(comparingByNoOfStudentsAndReviews).limit(5).collect(Collectors.toList()));
+//        System.out.println(
+//                courses.stream().sorted(comparingByNoOfStudentsAndReviews).limit(5).collect(Collectors.toList()));
+//
+//        System.out.println(
+//                courses.stream().sorted(comparingByNoOfStudentsAndReviews).skip(3).collect(Collectors.toList()));
 
-        System.out.println(
-                courses.stream().sorted(comparingByNoOfStudentsAndReviews).skip(3).collect(Collectors.toList()));
-
+        System.out.println(courses);
+        System.out.println(courses.stream().takeWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
+        System.out.println(courses.stream().dropWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
 
 
     }
