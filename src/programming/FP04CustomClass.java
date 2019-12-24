@@ -1,7 +1,9 @@
 package programming;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 class Course {
     private String name;
@@ -74,9 +76,31 @@ public class FP04CustomClass {
         Predicate<Course> reviewScoreGreaterThan90Predicate = course -> course.getReviewScore() > 90;
         Predicate<Course> reviewScoreLessThan90Predicate = course -> course.getReviewScore() < 90;
 
-        System.out.println(courses.stream().allMatch(reviewScoreGreaterThan95Predicate));
-        System.out.println(courses.stream().noneMatch(reviewScoreLessThan90Predicate));
-        System.out.println(courses.stream().anyMatch(reviewScoreGreaterThan90Predicate));
+//        System.out.println(courses.stream().allMatch(reviewScoreGreaterThan95Predicate));
+//        System.out.println(courses.stream().noneMatch(reviewScoreLessThan90Predicate));
+//        System.out.println(courses.stream().anyMatch(reviewScoreGreaterThan90Predicate));
+
+//        Comparator<Course> comparingByNoOfStudentsIncrease = Comparator.comparing(Course::getNoOfStudents);
+//
+//        System.out.println(
+//                courses.stream().sorted(comparingByNoOfStudentsIncrease).collect(Collectors.toList()));
+//
+//        Comparator<Course> comparingByNoOfStudentsDecrease = Comparator.comparingInt(Course::getNoOfStudents).reversed();
+//        System.out.println(
+//                courses.stream().sorted(comparingByNoOfStudentsDecrease).collect(Collectors.toList()));
+//
+//
+        Comparator<Course> comparingByNoOfStudentsAndReviews = Comparator.comparingInt(Course::getNoOfStudents).thenComparingInt(Course::getReviewScore).reversed();
+//        System.out.println(
+//                courses.stream().sorted(comparingByNoOfStudentsAndReviews).collect(Collectors.toList()));
+
+        System.out.println(
+                courses.stream().sorted(comparingByNoOfStudentsAndReviews).limit(5).collect(Collectors.toList()));
+
+        System.out.println(
+                courses.stream().sorted(comparingByNoOfStudentsAndReviews).skip(3).collect(Collectors.toList()));
+
+
 
     }
 }
