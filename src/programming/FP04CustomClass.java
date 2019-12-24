@@ -1,6 +1,7 @@
 package programming;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 class Course {
     private String name;
@@ -69,7 +70,13 @@ public class FP04CustomClass {
                 new Course("Docker", "Cloud", 92, 20000),
                 new Course("Kubernetes", "Cloud", 91, 20000));
 
-        
+        Predicate<Course> reviewScoreGreaterThan95Predicate = course -> course.getReviewScore() > 95;
+        Predicate<Course> reviewScoreGreaterThan90Predicate = course -> course.getReviewScore() > 90;
+        Predicate<Course> reviewScoreLessThan90Predicate = course -> course.getReviewScore() < 90;
+
+        System.out.println(courses.stream().allMatch(reviewScoreGreaterThan95Predicate));
+        System.out.println(courses.stream().noneMatch(reviewScoreLessThan90Predicate));
+        System.out.println(courses.stream().anyMatch(reviewScoreGreaterThan90Predicate));
 
     }
 }
