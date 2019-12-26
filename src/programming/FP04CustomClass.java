@@ -101,15 +101,15 @@ public class FP04CustomClass {
                 courses.stream().sorted(comparingByNoOfStudentsAndReviews).skip(3).collect(Collectors.toList()));
 
         System.out.println(courses);
-        System.out.println(courses.stream().takeWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
-        System.out.println(courses.stream().dropWhile(course -> course.getReviewScore()>=95).collect(Collectors.toList()));
+        System.out.println(courses.stream().takeWhile(course -> course.getReviewScore() >= 95).collect(Collectors.toList()));
+        System.out.println(courses.stream().dropWhile(course -> course.getReviewScore() >= 95).collect(Collectors.toList()));
 
         System.out.println(courses.stream().max(comparingByNoOfStudentsDecrease));
 
         System.out.println(courses.stream().min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
 
         System.out.println(courses.stream().filter(reviewScoreLessThan90Predicate)
-                        .min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
+                .min(comparingByNoOfStudentsDecrease).orElse(new Course("Kubernetes", "Cloud", 91, 20000)));
 
         System.out.println(courses.stream().filter(reviewScoreLessThan90Predicate).findFirst());
 
@@ -132,5 +132,14 @@ public class FP04CustomClass {
         // Get the name of the courses group by category
         System.out.println(courses.stream().collect(Collectors.groupingBy(Course::getCategory, Collectors.mapping(Course::getName, Collectors.toList()))));
 
+
+        //Working with HOC
+        Predicate<Course> reviewScoreGreaterThan95Predicate2 = createPredicateWithCutoffReviewScore(95);
+        Predicate<Course> reviewScoreGreaterThan90Predicate2 = createPredicateWithCutoffReviewScore(90);
+
+    }
+
+    private static Predicate<Course> createPredicateWithCutoffReviewScore(int cutoffReviewScore) {
+        return course -> course.getReviewScore() > cutoffReviewScore;
     }
 }
