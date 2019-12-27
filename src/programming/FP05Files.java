@@ -1,0 +1,23 @@
+package programming;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class FP05Files {
+
+    public static void main(String[] args) throws IOException {
+
+//        Files.lines(Paths.get("E:\\myStudy\\functional-programming-with-java\\file.txt"))
+//                .map(str -> str.split(" "))
+//                .flatMap(Arrays::stream)
+//                .distinct()
+//                .sorted()
+//                .forEach(System.out::println);
+
+        Files.list(Paths.get("E:\\myStudy\\functional-programming-with-java\\"))
+                .filter(Files::isDirectory)
+                .forEach(System.out::println);
+    }
+
+}
